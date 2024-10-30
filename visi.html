@@ -1,0 +1,85 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Database connection settings
+$servername = "localhost"; 
+$username = "root"; 
+$password = ""; // Your database password
+$dbname = "business"; 
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query to fetch events
+$sql = "SELECT eventname, eventdate, eventlocation, eventdescription FROM addevent";
+$result = $conn->query($sql);
+
+// Check for query errors
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualize Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .event {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Event List</h2>
+        <div id="eventList">
+            <?php
+            // Check if there are results
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while($row = $result->fetch_assoc()) {
+                    echo "<div class='event'>";
+                    echo "<h3>" . htmlspecialchars($row['eventname']) . "</h3>";
+                    echo "<p><strong>Date:</strong> " . htmlspecialchars($row['eventdate']) . "</p>";
+                    echo "<p><strong>Location:</strong> " . htmlspecialchars($row['eventlocation']) . "</p>";
+                    echo "<p><strong>Description:</strong> " . htmlspecialchars($row['eventdescription']) . "</p>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>No events found.</p>";
+            }
+
+            // Close connection
+            $conn->close();
+            ?>
+        </div>
+    </div>
+</body>
+</html>

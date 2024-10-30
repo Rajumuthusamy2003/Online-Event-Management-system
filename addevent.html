@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Organizer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #d1c4e9;
+            overflow-y: auto;
+        }
+
+        .content-section {
+            display: none; /* Hide all sections by default */
+        }
+
+        .content-section.active {
+            display: block; /* Show the active section */
+        }
+
+        form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Event Organizer</h2>
+            <ul>
+                <li><a href="addevent.html" onclick="showSection('add-event')">Add Event</a></li>
+                <li><a href="deleteevent.php" onclick="showSection('delete-event')">Delete Event</a></li>
+                <li><a href="visi.php">Visualize Events</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section id="addevent" class="content-section active">
+                <h2>Add Event</h2>
+                <form id="addEventForm" action="addevent.php" method="POST">
+                    <label for="eventname">Event Name:</label>
+                    <input type="text" id="eventname" name="eventname" required>
+                    
+                    <label for="eventdate">Event Date:</label>
+                    <input type="date" id="eventdate" name="eventdate" required>
+                
+                    <label for="eventlocation">Event Location:</label>
+                    <input type="text" id="eventlocation" name="eventlocation" required>
+                
+                    <label for="eventdescription">Event Description:</label>
+                    <input type="text" id="eventdescription" name="eventdescription" required>
+                
+                    <button type="submit">Add Event</button>
+                </form>
+            </section>
+
+            <section id="delete-event" class="content-section">
+                <h2>Delete Event</h2>
+                <form id="deleteEventForm">
+                    <label for="delete-event-name">Event Name:</label>
+                    <input type="text" id="delete-event-name" required>
+                    
+                    <button type="submit">Delete Event</button>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
